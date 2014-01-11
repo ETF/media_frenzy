@@ -1,7 +1,6 @@
-Draft ReadMe for Media Frenzy: V1
+Media Frenzy Project
 ===
-
-Working Project Title: Media Frenzy
+Created and agreed to by ETF, teddymcw, asciimo on 2014-01-11.
 
 Purpose
 ---
@@ -81,4 +80,38 @@ The project will be considered complete when:
 1. Users can comments on articles
 1. Users can add new article source links
 1. Newly submitted articles update the directory page, as well as the word frequency analysis.
+
+Division of Labor
+---
+### ETF
+#### General Goals
+ - Get hands into everything for comprehensive understanding of entire development process.
+ - Be able to completely reproduce similar project independently.
+ - Understand Flask
+ - Understand SQLAlchemy
+#### Specific Ownership
+ - Project Manage this project.
+ - Visualization functionality (D3?)
+ - Wireframes and Architecure
+
+### asciimo
+#### General Goals
+ - Learn the Foundation framework
+ - Understand MVC patterns in Flask
+ - Better understand advance Python patterns (modules, Object Oriented design)
+#### Specific Ownership
+ - Content fetching and scraping (Beautiful Soup)
+ - NLTK and word frequency process
+ - PostreSQL and SQLAlchemy 
+ - Git and release management
+
+### teddymcw
+#### General Goals
+ - Group project flow
+ - Solidifying full stack technology (Flask, Foundation, D3) skillz
+ - Building something uinque and usable
+ - Learn D3
+#### Specific Ownership
+ - Front-end (Foundation, jinja2, jQuery, Javascript)
+ - Flask 
 

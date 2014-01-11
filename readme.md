@@ -1,6 +1,7 @@
 Media Frenzy Project
 ===
 Created and agreed to by ETF, teddymcw, asciimo on 2014-01-11.
+mfrenzy.com registered jointly by ETF, teddymcw, asciimo on 2014-01-11.
 
 Purpose
 ---

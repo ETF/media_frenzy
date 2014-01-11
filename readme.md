@@ -89,6 +89,7 @@ Division of Labor
  - Be able to completely reproduce similar project independently.
  - Understand Flask
  - Understand SQLAlchemy
+
 #### Specific Ownership
  - Project Manage this project.
  - Visualization functionality (D3?)
@@ -99,6 +100,7 @@ Division of Labor
  - Learn the Foundation framework
  - Understand MVC patterns in Flask
  - Better understand advance Python patterns (modules, Object Oriented design)
+
 #### Specific Ownership
  - Content fetching and scraping (Beautiful Soup)
  - NLTK and word frequency process
@@ -111,6 +113,7 @@ Division of Labor
  - Solidifying full stack technology (Flask, Foundation, D3) skillz
  - Building something uinque and usable
  - Learn D3
+
 #### Specific Ownership
  - Front-end (Foundation, jinja2, jQuery, Javascript)
  - Flask 

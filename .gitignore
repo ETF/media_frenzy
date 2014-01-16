@@ -1,4 +1,9 @@
 *.pyc
+*.db
+*.log
+*.pyo
+.Python
+.DS_Store
 lib/
 bin/
 include/

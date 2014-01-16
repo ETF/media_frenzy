@@ -1,0 +1,90 @@
+ <!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEDIA FRENZY</title>
+    <link rel="stylesheet" href="static/css/foundation.css" />
+    <script src="static/js/modernizr.js"></script>
+
+    <style>
+    .bottom-bar   {
+                    position: fixed;
+                    bottom: 0px;
+                    width: 100%;
+                    margin-bottom: 0px;
+                  }
+                  
+    .light-border {
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: rgb(213, 238, 246);
+                   }
+    .white-space               
+                   {
+                    background-color: white; 
+                    border-color: white;
+                   }
+    </style>
+
+  </head>
+  <body>
+
+
+          
+
+        {% block content %}
+        {% endblock %}
+
+<!-- BOTTOM NAV BAR SECTION -->
+  <!-- MODAL -->
+  <div id="contact" class="reveal-modal" data-reveal style="text-align: center;"><h1>Please Don't!</h1>
+    <a class="close-reveal-modal" href="#">x</a>
+  </div>
+    
+  <!-- MODAL -->
+  <div id="jobs" class="reveal-modal" data-reveal style="text-align: center;"><h1>Internships!</h1>
+    <a class="close-reveal-modal" href="#">x</a>
+  </div>
+
+  <!-- MODAL -->
+  <div id="co" class="reveal-modal" data-reveal class="large-4 columns">
+    <a class="close-reveal-modal" href="#">x</a>
+  </div>
+
+  <!-- Start BOTTOM NAV BAR SELF Section (special class 'bottom-bar' added to foundation) -->
+  <div class="fixed">  
+    <nav style="background-color: white;" class="top-bar bottom-bar">
+      <ul class="title-area">
+        <li class="name"><h1 style="color: black;" data-tooltip class="has-tip" title="click to locate route from current location" data-reveal-id="co">
+        Brought to you by Freindsy Media &nbsp;
+             </h1></li>
+      </ul>
+      <section class="top-bar-section"> 
+        <ul class="left">
+          <li style="color: blue; background-color: white;"><h4><a href="#" style="color: blue; background-color: white;">...</a></h4></li>
+        </ul>
+        <ul class="right">
+          <li>
+            <a href="#" style="color: black; background-color: white; border-color: white;" id="contact" data-reveal-id="contact" data-tooltip class="has-tip" title="view large">Contact</a>
+          </li>
+          <li>
+            <a href="#" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Jobs</a>
+          </li>
+        </ul> 
+      </section>
+    </nav>
+  </div>
+  <!-- End BOTTOM NAV BAR SELF Section -->
+<!-- End All BOTTOM NAV BAR Sections --> 
+
+  <!-- LOADJS -->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+
+  </body>
+</html>
+  

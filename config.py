@@ -2,10 +2,10 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-DATABASE = 'just_test.db'
+DATABASE = 'test.db'
 
-SECRET_KEY = '9VCxvsnlUcMe'
+SECRET_KEY = '8xUkzv4Zttu7'
 
 DATABASE_PATH = os.path.join(basedir, DATABASE)
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:////' + DATABASE
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE

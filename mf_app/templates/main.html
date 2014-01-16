@@ -1,0 +1,56 @@
+{% extends "template.html" %}
+{% block content %}
+    
+    <!-- HEADER -->
+    <div class="row">
+      <div class="large-12 columns">
+        <h7>Main...</h7>
+      </div>
+    </div>
+    
+
+    <!-- SCOOPS LIST -->
+    <div class="row" >
+    <!-- LEFT SIDE (MEDIA SENTIMENT) -->
+      <div class="large-3 medium-3 columns" style="text-align: center;">
+        <h5>Left</h5>
+        <p class="light-border">bubbles! <br/><br/><br/><br/><br/><br/><br/></p> 
+        <div class="light-border">
+          <ul> 
+            <li> link </li>
+            <li> link </li>
+            <li> link </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- PLAINTEXT CONTENT-->
+      <div class="large-6 medium-6 columns" class="light-border" style="text-align: center;">
+        <h1> Headlines!!! </h1>
+      </div>
+
+      <!-- RIGHT SIDE (USER SENTIMENT) -->
+      <div class="large-3 medium-3 columns" class="light-border" style="text-align: center;">
+        <h5>Right</h5>
+        <p class="light-border">bubbles! <br/><br/><br/><br/><br/><br/><br/></p> 
+        <div class="light-border">
+          <ul> 
+            <li> comment</li>
+            <li> comment </li>
+            <li> comment </li>
+          </ul>
+        </div>        
+      </div>
+
+    </div>
+
+  <!-- LOADJS -->
+    <script src="js/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+
+  </body>
+</html>
+{% endblock %}

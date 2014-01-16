@@ -11,6 +11,13 @@ Media Frenzy will use public news sources to gather keywords related to an event
 
 Media Frenzy will allow users to comment on articles and events, read a plaintext version of the content, and allow user comments to generate visualizations based on keyword frequency analysis.
 
+Getting Started
+---
+From media_franzy directory
+- Install Dependencies: pip install -r requirements.txt
+- Create Database: python db_create.py
+- View app: python run.py 
+
 User Interface Structure
 ---
 The Media Frenzy site will consist of two main sections:

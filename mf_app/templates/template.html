@@ -29,55 +29,164 @@
 
   </head>
   <body>
-
-
-          
+  <!-- ERROR SECTION -->  
+      {% for message in get_flashed_messages() %}
+         <div class="flash">{{ message }}</div> <br/><br/>
+      {% endfor %}
+      {% if error %}
+        <p class="error"><strong>Error: </strong> {{ error }} </p> <br/><br/>
+      {% endif %}
+  <!-- END ERROR SECTION -->
 
         {% block content %}
         {% endblock %}
 
 <!-- BOTTOM NAV BAR SECTION -->
-  <!-- MODAL -->
-  <div id="contact" class="reveal-modal" data-reveal style="text-align: center;"><h1>Please Don't!</h1>
-    <a class="close-reveal-modal" href="#">x</a>
-  </div>
-    
-  <!-- MODAL -->
-  <div id="jobs" class="reveal-modal" data-reveal style="text-align: center;"><h1>Internships!</h1>
-    <a class="close-reveal-modal" href="#">x</a>
-  </div>
 
-  <!-- MODAL -->
-  <div id="co" class="reveal-modal" data-reveal class="large-4 columns">
-    <a class="close-reveal-modal" href="#">x</a>
-  </div>
+  <!-- START MODAL CONTENT SECTION -->
+  
+    <!-- FRENZY MEDIA MODAL -->
+    <div id="co" class="reveal-modal" data-reveal class="large-4 columns" style="text-align: center;">
+      <h1> Watch Out Sharks! </h1>
+      <img src='static/img/shark_above_water.jpg'>
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+
+    <!-- BLANK MODAL -->
+    <div id="blank" class="reveal-modal" data-reveal class="large-4 columns" style="text-align: center;">
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div id="register" class="reveal-modal" data-reveal style="text-align: center;">
+      <div class="row">
+       <div class="large-12 columns">
+        <h6> Please Register </h6>
+          <br/>
+          <form action="" method="POST">
+            <p>{{ form.name.label }} {{ form.name }}&nbsp;{{ form.email.label }} {{ form.email }}</p>&nbsp;
+            <p>{{ form.password.label }} {{ form.password }}&nbsp;{{ form.confirm.label }} {{ form.confirm }}</p>
+            <p><input type="submit" value="Register" class="large round button"></p>
+          </form>
+          <p><em>Already registered?</em> Click <a href="{{ url_for('directory') }}">here</a> to login</p>
+        </div>
+      </div>
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login" class="reveal-modal" data-reveal style="text-align: center;">
+      <div class="row">
+       <div class="large-12 columns">
+        <form action="" method="post">
+          Username: <input type="text" name="username" value="{{ request.form.username }}">
+          Password: <input type="password" name="password" value="{{ request.form.password }}">
+          <br/><br/><br/><br/>
+          <p><input class="medium round button" type="submit" value="Login"></p>
+        </form>  
+       </div>
+      </div>
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+
+    <!-- CONTACT MODAL -->
+    <div id="contact" class="reveal-modal" data-reveal style="text-align: center;"><h1>Please Don't!</h1>
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+      
+    <!-- JOBS MODAL -->
+    <div id="jobs" class="reveal-modal" data-reveal style="text-align: center;"><h1>Internships!</h1>
+      <a class="close-reveal-modal" href="#">x</a>
+    </div>
+
+  <!-- END MODAL CONTENT SECTION -->
 
   <!-- Start BOTTOM NAV BAR SELF Section (special class 'bottom-bar' added to foundation) -->
   <div class="fixed">  
     <nav style="background-color: white;" class="top-bar bottom-bar">
       <ul class="title-area">
-        <li class="name"><h1 style="color: black;" data-tooltip class="has-tip" title="click to locate route from current location" data-reveal-id="co">
-        Brought to you by Freindsy Media &nbsp;
-             </h1></li>
+
+        <!-- FRENZY MEDIA MODAL -->
+        <li class="name">
+          <h1 style="color: black;" data-tooltip class="has-tip" title="Friend???" data-reveal-id="co">
+                      Brought to you by Freindsy Media &nbsp;</h1>
+        </li>
       </ul>
       <section class="top-bar-section"> 
+
+        <!-- ????? HOW TO ADD BLANK SPACE ???? -->
+        
         <ul class="left">
-          <li style="color: blue; background-color: white;"><h4><a href="#" style="color: blue; background-color: white;">...</a></h4></li>
+
+        <!-- BLANK MODAL -->
+          <li class="white-space">
+            <h5 style="color: blue;" class="white-space">
+              <a href="#" id="blank" data-tooltip class="has-tip" title="blank!" data-reveal-id="blank" class="white-space">...</a>
+            </h5>
+          </li>
+
+        <!-- FUCK!!!! -->
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- REGISTER MODAL -->
+          <li style="color: blue; background-color: white;">
+            <h5>
+              <a href="#" style="color: blue; background-color: white;" id="register" data-reveal-id="register" data-tooltip class="has-tip" title="view large">Register</a>
+            </h5>
+          </li>
+        
+
+        <!-- LOGIN MODAL -->
+          <li style="color: blue; background-color: white;">
+            <h5>
+              <a href="#" style="color: blue; background-color: white;" id="login" data-reveal-id="login" data-tooltip class="has-tip" title="view large">Login</a>
+            </h5>
+          </li>
+
         </ul>
+
         <ul class="right">
-          <li>
-            <a href="#" style="color: black; background-color: white; border-color: white;" id="contact" data-reveal-id="contact" data-tooltip class="has-tip" title="view large">Contact</a>
+          <!-- CONTACT MODAL -->
+          <li class="white-space">
+            <h5>
+              <a href="#" style="color: black; background-color: white; border-color: white;" id="contact" data-reveal-id="contact" data-tooltip class="has-tip" title="view large">Contact</a>
+            </h5>
           </li>
-          <li>
-            <a href="#" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Jobs</a>
+
+          <!-- JOBS MODAL -->
+          <li class="white-space">
+            <h5>
+              <a href="#" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Jobs</a>
+            </h5>
           </li>
+
+          <!-- ADD LOGOUT TO BOTTOM NAV -->
+          {% if session.logged_in %}
+          <li class="white-space">
+            <h5>
+              <a href="{{ url_for('directory') }}" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Logout</a>
+            </h5>
+          </li>
+          {% endif %}
+
         </ul> 
+
       </section>
     </nav>
   </div>
   <!-- End BOTTOM NAV BAR SELF Section -->
 <!-- End All BOTTOM NAV BAR Sections --> 
 
+      {% if not session.logged_in %} 
+        <a class="small secondary button" href="{{ url_for('directory') }}">Main</a> <br/><br/><br/><br/>
+      {% else %}
+        <div class="row">
+          <div class="large-1 columns"></div>
+          <div class="large-1 large-offset-10 columns">
+            <a class="small secondary button" href="{{ url_for('directory') }}">Main</a>
+          </div> 
+        </div>    
+      {% endif %}
   <!-- LOADJS -->
     <script src="static/js/jquery.js"></script>
     <script src="static/js/foundation.min.js"></script>

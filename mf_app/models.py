@@ -1,6 +1,7 @@
 from mf_app import db
 import datetime
 
+#CHECK UPON INITIALIZING FOREIGN RELATIONSHIPS
 
 class User(db.Model):
 
@@ -10,8 +11,8 @@ class User(db.Model):
 	username = db.Column(db.String, unique=True, nullable=False) #no real names
 	email = db.Column(db.String, unique=True, nullable=False) #ways to authenticate?
 	password = db.Column(db.String, nullable=False)
-	creation_date = db.Column(db.Date)							#make sure that Date is valid and DateTime isn't necessary
-	updated_date = db.Column(db.Date)
+	creation_date = db.Column(db.DateTime)							#make sure that Date is valid and DateTime isn't necessary
+	updated_date = db.Column(db.DateTime)
 	lost_password_key = db.Column(db.String, nullable=True)	#cryptography here, sha-512
 	events = db.relationship('Event', backref='poster', lazy='dynamic') #look up in docs
 	comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
@@ -40,8 +41,8 @@ class Comment(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 	comment = db.Column(db.Text, nullable=False)
 	event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
-	comment_date = db.Column(db.Date)
-	comment_update = db.Column(db.Date)
+	comment_date = db.Column(db.DateTime)
+	comment_update = db.Column(db.DateTime)
 	article_id = db.Column(db.Integer, db.ForeignKey('articles.article_id'))
 
 	def __init__(self, comment=None, comment_date=None, comment_update=None):
@@ -59,14 +60,16 @@ class Event(db.Model):
 	event_id = db.Column(db.Integer, primary_key=True)
 	event_title = db.Column(db.String, nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-	event_date = db.Column(db.Date)
-	event_update = db.Column(db.Date)	
+	event_date = db.Column(db.DateTime)
+	event_update = db.Column(db.DateTime)	
 	articles = db.relationship('Article', backref='the_source', lazy='dynamic')
 
-	def __init__(self, event_title=None, event_date=None, event_update=None):
+	def __init__(self, event_title=None, user_id=None, event_date=None, event_update=None):
 		self.event_title = event_title
-		self.event_date = event_date
-		self.event_update = event_update
+		self.user_id = user_id
+		self.event_date = datetime.datetime.utcnow()
+		self.event_update = datetime.datetime.utcnow() #This needs to be distinguished from utcnow()
+		#
 
 	def __repr__(self):
 		return '<Event %r>' % (self.event_title)
@@ -104,8 +107,8 @@ class Source(db.Model):	#probly a lot of articles from different sources
 	articles = db.relationship('Article', backref='source', lazy='dynamic')
 
 	def __init__(self, source_name=None, source_base_url=None):
-		source_name = self.source_name
-		source_base_url = self.source_base_url
+		self.source_name = source_name
+		self.source_base_url = source_base_url
 
 	def __repr__(self):
 		return '<Source %r>' % (self.source_name)

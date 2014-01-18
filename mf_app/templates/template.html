@@ -25,16 +25,21 @@
                     background-color: white; 
                     border-color: white;
                    }
+    .error         
+                  {
+                    color: red;
+                    font-size: 12px;
+                  }
     </style>
 
   </head>
   <body>
   <!-- ERROR SECTION -->  
       {% for message in get_flashed_messages() %}
-         <div class="flash">{{ message }}</div> <br/><br/>
+         <div class="flash"><h1>{{ message }}</h1></div> <br/><br/>
       {% endfor %}
       {% if error %}
-        <p class="error"><strong>Error: </strong> {{ error }} </p> <br/><br/>
+        <p class="error"><strong style="color: red;">Error: </strong> {{ error }} </p> <br/><br/>
       {% endif %}
   <!-- END ERROR SECTION -->
 

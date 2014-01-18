@@ -23,11 +23,10 @@ def login_required(test):
 #END ERROR AND LOGIN HANDLING
 
 #ROUTES
+#REGISTER FUNCTION
 @app.route('/', methods=['GET', 'POST'])
 def directory():
 	error = None
-
-	#REGISTER FUNCTION
 	form = RegisterForm(request.form, csrf_enabled=False)
 	if form.validate_on_submit():
 		new_user = User(form.name.data,
@@ -43,8 +42,12 @@ def directory():
 			error = 'That username and/or email already exists. Please try again.'
 	else:
 		flash_errors(form)
+	return render_template('directory.html', form=form, error=error)
 
-	#LOGIN FUNCTION
+#LOGIN FUNCTION
+@app.route('/login', methods=['GET','POST'])
+def login():
+	error = None
 	if request.method == 'POST':
 		u = User.query.filter_by(name=request.form['name'],
 								 password=request.form['password']).first()
@@ -55,9 +58,13 @@ def directory():
 			session['user_id'] = u.user_id
 			flash('You are now logged in')
 		#JUST FOR TESTING THIS SHOULD BE CHANGED LATER
-		return render_template('directory.html', form=form, error=error)
-	return render_template('directory.html', form=form, error=error)
+		return redirect(url_for('directory'))
+	return render_template('directory.html', form=LoginForm(request.form), error=error)
 
 @app.route('/main')
 def main():
 	return render_template('main.html')
+
+def lexical_diversity(text):
+	allwords = float(len(text))
+	justset = float(len(set(text)))

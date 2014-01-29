@@ -4,7 +4,7 @@
     <!-- HEADER -->
     <div class="row">
       <div class="large-12 columns">
-        <h7>Main...</h7>
+        <h7></h7>
       </div>
     </div>
     
@@ -13,8 +13,24 @@
     <div class="row" >
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
       <div class="large-3 medium-3 columns" style="text-align: center;">
-        <h5>Left</h5>
-        <p class="light-border">bubbles! <br/><br/><br/><br/><br/><br/><br/></p> 
+        <h5>Bush 2002</h5>
+        <p class="light-border">
+          <table>
+            <thead>
+              <tr>
+                <th width="200">Word</th>
+                <th width="150">Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for key, value in text1_wfreq.iteritems() %}
+              <tr>
+                <td class="weighted">{{ key }}</td>
+                <td class="weighted">{{ value }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
         <div class="light-border">
           <ul> 
             <li> link </li>
@@ -31,13 +47,29 @@
 
       <!-- RIGHT SIDE (USER SENTIMENT) -->
       <div class="large-3 medium-3 columns" class="light-border" style="text-align: center;">
-        <h5>Right</h5>
-        <p class="light-border">bubbles! <br/><br/><br/><br/><br/><br/><br/></p> 
+        <h5>Obama 2013</h5>
+        <p class="light-border">
+          <table>
+            <thead>
+              <tr>
+                <th width="200">Word</th>
+                <th width="150">Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for key, value in text2_wfreq.iteritems() %}
+              <tr>
+                <td class="weighted">{{ key }}</td>
+                <td class="weighted">{{ value }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
         <div class="light-border">
-          <ul> 
-            <li> comment</li>
-            <li> comment </li>
-            <li> comment </li>
+          
+            
+            
           </ul>
         </div>        
       </div>

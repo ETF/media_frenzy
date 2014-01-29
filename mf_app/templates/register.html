@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block content %}
+
+	 <div class="row">
+       <div class="large-12 columns">
+        <h6> Please Register </h6>
+          <br/>
+          <form action="" method="POST">
+            <p>{{ form.username.label }} {{ form.username }}&nbsp;{{ form.email.label }} {{ form.email }}</p>&nbsp;
+            <p>{{ form.password.label }} {{ form.password }}&nbsp;{{ form.confirm.label }} {{ form.confirm }}</p>
+            <p><input class="large round button" type="submit" value="Register"></p>
+          </form>
+          <!-- <p><em>Already registered?</em> Click <a href="{{ url_for('login') }}">here</a> to login</p> 
+          THIS WON'T WORK WITH MODALS -->
+        </div>
+      </div>
+
+{% endblock %}

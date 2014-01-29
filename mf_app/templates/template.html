@@ -62,30 +62,12 @@
       <a class="close-reveal-modal" href="#">x</a>
     </div>
 
-    <!-- REGISTER MODAL -->
-    <div id="register" class="reveal-modal" data-reveal style="text-align: center;">
-      <div class="row">
-       <div class="large-12 columns">
-        <h6> Please Register </h6>
-          <br/>
-          <form action="" method="POST">
-            <p>{{ form.name.label }} {{ form.name }}&nbsp;{{ form.email.label }} {{ form.email }}</p>&nbsp;
-            <p>{{ form.password.label }} {{ form.password }}&nbsp;{{ form.confirm.label }} {{ form.confirm }}</p>
-            <p><input type="submit" value="Register" class="large round button"></p>
-          </form>
-          <p><em>Already registered?</em> Click <a href="{{ url_for('directory') }}">here</a> to login</p>
-        </div>
-      </div>
-      <a class="close-reveal-modal" href="#">x</a>
-    </div>
-
     <!-- LOGIN MODAL -->
     <div id="login" class="reveal-modal" data-reveal style="text-align: center;">
       <div class="row">
        <div class="large-12 columns">
-        <form action="" method="post">
-          Username: <input type="text" name="username" value="{{ request.form.username }}">
-          Password: <input type="password" name="password" value="{{ request.form.password }}">
+        <form action="" method="POST">
+          <p>{{ form.username.label }} {{ form.username }}&nbsp;{{ form.password.label }} {{ form.password }}</p>&nbsp;
           <br/><br/><br/><br/>
           <p><input class="medium round button" type="submit" value="Login"></p>
         </form>  
@@ -119,7 +101,7 @@
       </ul>
       <section class="top-bar-section"> 
 
-        <!-- ????? HOW TO ADD BLANK SPACE ???? -->
+        <!-- ????? HOW TO ADD CLEAN BLANK SPACE ???? -->
         
         <ul class="left">
 
@@ -133,18 +115,18 @@
         <!-- FUCK!!!! -->
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <!-- REGISTER MODAL -->
-          <li style="color: blue; background-color: white;">
-            <h5>
-              <a href="#" style="color: blue; background-color: white;" id="register" data-reveal-id="register" data-tooltip class="has-tip" title="view large">Register</a>
-            </h5>
-          </li>
-        
 
         <!-- LOGIN MODAL -->
           <li style="color: blue; background-color: white;">
             <h5>
               <a href="#" style="color: blue; background-color: white;" id="login" data-reveal-id="login" data-tooltip class="has-tip" title="view large">Login</a>
+            </h5>
+          </li>
+
+        <!-- REGISTER BUTTON -->
+          <li style="color: blue; background-color: white;">
+            <h5>
+              <a href="{{ url_for('register') }}" style="color: blue; background-color: white;" id="register" data-tooltip class="has-tip" title="view large">Register</a>
             </h5>
           </li>
 
@@ -167,9 +149,10 @@
 
           <!-- ADD LOGOUT TO BOTTOM NAV -->
           {% if session.logged_in %}
+          <br/><br/><br/><br/><br/><br/>
           <li class="white-space">
             <h5>
-              <a href="{{ url_for('directory') }}" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Logout</a>
+              <a href="{{ url_for('login') }}" style="color: black; background-color: white;" id="jobs" data-reveal-id="jobs" data-tooltip class="has-tip" title="view large">Logout</a>
             </h5>
           </li>
           {% endif %}
@@ -183,12 +166,12 @@
 <!-- End All BOTTOM NAV BAR Sections --> 
 
       {% if not session.logged_in %} 
-        <a class="small secondary button" href="{{ url_for('directory') }}">Main</a> <br/><br/><br/><br/>
+        <a class="small secondary button" href="{{ url_for('login') }}">Main</a> <br/><br/><br/><br/>
       {% else %}
         <div class="row">
           <div class="large-1 columns"></div>
           <div class="large-1 large-offset-10 columns">
-            <a class="small secondary button" href="{{ url_for('directory') }}">Main</a>
+            <a class="small secondary button" href="{{ url_for('login') }}">Main</a>
           </div> 
         </div>    
       {% endif %}

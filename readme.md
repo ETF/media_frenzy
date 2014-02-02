@@ -13,9 +13,10 @@ Media Frenzy will allow users to comment on articles and events, read a plaintex
 
 Getting Started
 ---
-From media_franzy directory
+From media_frenzy directory
 - Install Dependencies: pip install -r requirements.txt
 - Create Database: python db_create.py
+- Debug is set to True
 - View app: python run.py 
 
 User Interface Structure

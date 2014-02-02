@@ -12,10 +12,13 @@ admin = User('admin', 'admin@admin.com', 'admin1', 'fakelostpasskey1')
 guest = User('guest', 'guest@guest.com', 'guest1', 'fakelostpasskey1')
 
 #TEST COMMENT DATA
+#def __init__(self, comment=None, comment_date=None, comment_update=None):
+#dates set to datetime.datetime.utcnow()
 comment1 = Comment("this is not a substantive comment")
 
 #TEST EVENT DATA
-#event1 = Event('NYTimes', 'www.nytimes.com', '1')
+#def __init__(self, event_title=None, user_id=None, event_date=None, event_update=None):
+#dates set to datetime.datetime.utcnow()
 event1 = Event('SF Housing', 2)
 
 #TEST ARTICLE DATA

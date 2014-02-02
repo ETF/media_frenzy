@@ -1,9 +1,12 @@
 from mf_app import app, db
-from mf_app.models import User
-from mf_app.forms import RegisterForm, LoginForm
+from mf_app.models import User, Article
+from mf_app.forms import RegisterForm, LoginForm, StartFrenzy
 from flask import render_template, request, session, flash, redirect, url_for
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
+import utilities
+
+
 
 #ERROR AND LOGIN HANDLING
 def flash_errors(form):
@@ -27,6 +30,13 @@ def login_required(test):
 
 #LOGIN FUNCTION ON DIRECTORY PAGE
 @app.route('/', methods=['GET','POST'])
+def index():
+	error = None
+	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
+	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
+	return render_template('directory.html', form=StartFrenzy(request.form), error=error, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
+
+@app.route('/login', methods=['POST'])
 def login():
 	error = None
 	if request.method == 'POST':
@@ -39,6 +49,43 @@ def login():
 			flash('You are now logged in')
 		return render_template('directory.html', form=LoginForm(request.form), error=error)
 	return render_template('directory.html', form=LoginForm(request.form), error=error)
+
+@app.route('/start_frenzy', methods=['POST'])
+def start_frenzy():
+	error = None
+	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
+	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
+	form = StartFrenzy(request.form)
+	# Test the type of request.form
+	#may require type conversion
+	if form:
+		#title, url, content = utilities.pull_info(form.url)
+		title, url, content = utilities.pull_info('http://www.united.com')
+		#title, url, content = 'Title of Article', 'http://www.cnn.com', 'Here is some content'
+		#test this object
+		article = Article(title,
+						#0, #need to add source_id
+						url,
+						content,
+						'Heyy we need freq data!',
+						#1,
+						#2
+						)
+		try:
+			db.session.add(article)
+			db.session.commit()
+			flash('Started a frenzy')
+
+		except IntegrityError:
+			return 'Hey this already exists'
+	else:
+		flash('Not working')	
+
+	if request.method == 'POST':   #does the request happen before WTForms catches it or not
+		return render_template('main.html', form=form, error=error, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
+	else:
+		return render_template('directory.html', error=error)
+
 
 #REGISTER FUNCTION ONLY NEEDED ONCE
 @app.route('/register', methods=['GET', 'POST'])

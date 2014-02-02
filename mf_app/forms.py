@@ -1,7 +1,7 @@
 #using WTF-0.9.3
 from flask_wtf import Form
 from wtforms import TextField, DateField, IntegerField, SelectField, PasswordField, DateField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, URL
 
 class RegisterForm(Form):
 	##NOTE: ADEQUATE ERROR MESSAGES AND POSSIBLE PASSWORD STRENGTH BAR NEEDED HERE!!!
@@ -14,3 +14,7 @@ class RegisterForm(Form):
 class LoginForm(Form):
 	username = TextField('Username', validators=[DataRequired()])
 	password = PasswordField('Password', validators=[DataRequired()])
+
+class StartFrenzy(Form):
+	url = TextField(u'url', validators=[DataRequired()])
+	#, URL(message="Not a valid URL, please try again")

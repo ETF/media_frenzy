@@ -38,9 +38,21 @@
             <div class="callout panel" style="text-align: center;">
               <br/><br/><br/><br/><p>current happenings</p> <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>   
             </div>
-            <div style="text-align: center;">
-              <p><a href="{{ url_for('main') }}" class="large round button" style="background-color: #f38400;">START A FRENZY!</a></p> <br/>   
-            </div> 
+            
+            <div class="row">
+           <div class="large-12 columns">
+            <h6> URL </h6>
+              <br/>
+              <form action="/start_frenzy" method="POST">
+                <p>{{ form.url.label }} {{ form.url }}</p>&nbsp;
+                <div style="text-align: center;">
+                  <p><input href="{{ url_for('main') }}" class="large round button" type="submit" style="background-color: #f38400;">START A FRENZY!</a></p> <br/>   
+                </div>
+              </form>
+              <!-- <p><em>Already registered?</em> Click <a href="{{ url_for('login') }}">here</a> to login</p> 
+              THIS WON'T WORK WITH MODALS -->
+            </div>
+          </div>
           </div>
         </div>
       </div>

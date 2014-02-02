@@ -3,7 +3,8 @@ import nltk
 
 url = 'http://www.nytimes.com'
 
-def pull_it(url):
+
+def nltk_pulling(url):
 	source = requests.get(url)
 	source = source.text
 
@@ -28,3 +29,4 @@ def test_pull_freqdist(url, freqdist):
 	pull_it(url)
 	#assert typeof(source.text)) == "class 'nltk.text.Text'"
 	assert type(freqdist) == ("class 'nltk.probability.FreqDist'")
+

@@ -7,6 +7,8 @@ db = SQLAlchemy(app)
 
 from mf_app import views, models
 
+
+
 #logging section
 if not app.debug:
 	import os

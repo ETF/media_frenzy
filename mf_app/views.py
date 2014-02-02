@@ -67,12 +67,13 @@ def register():
 @app.route('/main')
 @login_required
 def main():
+	#text1_list = [77,33,16,15,13,13,13,13]
 	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
 	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
-	easywords1 = [key for key in text1_wfreq.keys()]
-	easywords2 = [key for key in text2_wfreq.keys()]
-	easyfreq1 = [value for value in text1_wfreq.values()]
-	easyfreq2 = [value for value in text2_wfreq.values()]
+	#easywords1 = [key for key in text1_wfreq.keys()]
+	#easywords2 = [key for key in text2_wfreq.keys()]
+	#easyfreq1 = [value for value in text1_wfreq.values()]
+	#easyfreq2 = [value for value in text2_wfreq.values()]
 	error = None
 	#
 	#easywords1=easywords1, easywords2=easywords2, easyfreq1=easyfreq1, easyfreq2=easyfreq2

@@ -26,7 +26,7 @@ def pull_freqdist(url):
 	return freqdist
 
 def test_pull_freqdist(url, freqdist):
-	pull_it(url)
+	nltk_pulling(url)
 	#assert typeof(source.text)) == "class 'nltk.text.Text'"
 	assert type(freqdist) == ("class 'nltk.probability.FreqDist'")
 

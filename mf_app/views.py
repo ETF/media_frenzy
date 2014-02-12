@@ -59,8 +59,15 @@ def start_frenzy():
 	# Test the type of request.form
 	#may require type conversion
 	if form:
-		#title, url, content = utilities.pull_info(form.url)
-		title, url, content = utilities.pull_info('http://www.united.com')
+		this = type(form.url)
+		this = this.__html__
+		this = type(this)
+		flash(this)
+		print(this)
+		#
+		ok = '''proper_url = str(form.url)
+		title, url, content = utilities.pull_info(proper_url)
+		#title, url, content = utilities.pull_info('http://www.united.com')
 		#title, url, content = 'Title of Article', 'http://www.cnn.com', 'Here is some content'
 		#test this object
 		article = Article(title,
@@ -77,7 +84,7 @@ def start_frenzy():
 			flash('Started a frenzy')
 
 		except IntegrityError:
-			return 'Hey this already exists'
+			return 'Hey this already exists' '''
 	else:
 		flash('Not working')	
 

@@ -16,5 +16,4 @@ class LoginForm(Form):
 	password = PasswordField('Password', validators=[DataRequired()])
 
 class StartFrenzy(Form):
-	url = TextField(u'url', validators=[DataRequired()])
-	#, URL(message="Not a valid URL, please try again")
+	url = TextField(u'url', validators=[DataRequired(), URL(message="Not a valid URL, please try again")])

@@ -1,6 +1,7 @@
 from mf_app import app, db
 from mf_app.models import User, Article
 from mf_app.forms import RegisterForm, LoginForm, StartFrenzy
+from api import counts_pages_words
 from flask import render_template, request, session, flash, redirect, url_for
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
@@ -55,15 +56,25 @@ def start_frenzy():
 	error = None
 	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
 	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
+	
 	form = StartFrenzy(request.form)
 	# Test the type of request.form
 	#may require type conversion
 	if form:
 		this = type(form.url)
-		this = this.__html__
-		this = type(this)
-		flash(this)
-		print(this)
+		#this = this.__html__
+		#this = type(this)
+		flash(form.url.data)
+		#import pdb; pdb.set_trace()
+		w_url = str(form.url.data)
+		
+		#w_url = w_url.__html__
+		results = counts_pages_words(w_url)
+		title = results["title"]
+		text1_wfreq = dict(results["freq_dist"][0:10])
+		text2_wfreq = dict(results["freq_dist"][10:20])
+
+		#print(this)
 		#
 		ok = '''proper_url = str(form.url)
 		title, url, content = utilities.pull_info(proper_url)
@@ -89,7 +100,7 @@ def start_frenzy():
 		flash('Not working')	
 
 	if request.method == 'POST':   #does the request happen before WTForms catches it or not
-		return render_template('main.html', form=form, error=error, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
+		return render_template('main.html', form=form, error=error, title=title, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
 	else:
 		return render_template('directory.html', error=error)
 

@@ -8,5 +8,4 @@ def counts_pages_words(url):
 	tokens = nltk.word_tokenize(clean) #can make class nltk.text.Text object out of tokens
 	freqdist = nltk.FreqDist(tokens)
 	freqdist.items()
-	print(source.text)
 	return { "title": source.url.title, "freq_dist": freqdist.items() }

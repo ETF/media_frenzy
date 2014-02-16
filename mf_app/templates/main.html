@@ -14,7 +14,7 @@
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
       <div class="large-3 medium-3 columns" style="text-align: center;">
         <h5>{{ title }}</h5>
-        <p class="light-border">
+        <p id="display1" class="light-border">
           <table>
             <thead>
               <tr>
@@ -48,7 +48,7 @@
       <!-- RIGHT SIDE (USER SENTIMENT) -->
       <div class="large-3 medium-3 columns" class="light-border" style="text-align: center;">
         <h5>Obama 2013</h5>
-        <p class="light-border">
+        <p id="display2" class="light-border">
           <table>
             <thead>
               <tr>
@@ -81,6 +81,55 @@
     <script src="js/foundation.min.js"></script>
     <script>
       $(document).foundation();
+    </script>
+    <script>
+    var ellipseData = [
+  { "cx": 80, "cy": 50, "rx": 37, "ry": 10, "color" : "orange", "text" : "applause" },
+  { "cx": 210, "cy": 90, "rx": 33, "ry": 10, "color" : "red", "text" : "america" },
+  { "cx": 80, "cy": 130, "rx": 16, "ry": 10, "color" : "purple", "text" : "security" },
+  { "cx": 210, "cy": 170, "rx": 15, "ry": 10, "color" : "blue", "text" : "american" },
+  { "cx": 80, "cy": 210, "rx": 13, "ry": 10, "color" : "green", "text" : "afghanistan" },
+  { "cx": 210, "cy": 250, "rx": 13, "ry": 10, "color" : "pink", "text" : "good" }];
+
+  //Create the SVG Viewport
+var svgContainer = d3.select("#display1").append("svg")
+                                     .attr("width", 300)
+                                     .attr("height", 300)
+                                     .style("border", "1px solid black");
+//Add circles to the svgContainer
+var ellipses = svgContainer.selectAll("ellipse")
+                           .data(ellipseData)
+                           .enter()
+                           .append("ellipse");
+
+//Add the circle attributes
+// Note that we may have to program the circles (circle radii) to be bigger depending on the length of the word
+var ellipseAttributes = ellipses
+                       //know more about the d attribute and what it stores
+                       .attr("cx", function (d) { return d.cx; })
+                       .attr("cy", function (d) { return d.cy; })
+                       .attr("rx", function (d) { return d.rx + 27; }) 
+                       .attr("ry", function (d) { return d.ry + 16; }) 
+                       // + 5 to make word fit in bubble
+                       .style("fill", function (d) { return d.color; });
+
+//Add the SVG Text Element to the svgContainer
+var text = svgContainer.selectAll("text")
+                        .data(ellipseData)
+                        .enter()
+                        .append("text");
+
+//Add SVG Text Element Attributes
+//NEED D.TEXT.LENGTH PROPERTY HERE
+var textLabels = text
+                 .attr("x", function(d) { return d.cx; })
+                 .attr("y", function(d) { return d.cy; })
+                 .text( function (d) { return d.text; })
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "12px")
+                 .attr("text-anchor","middle")
+                 .attr("fill", "white");
+
     </script>
 
   </body>

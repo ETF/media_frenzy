@@ -5,7 +5,7 @@ from api import counts_pages_words
 from flask import render_template, request, session, flash, redirect, url_for
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
-import utilities
+import api
 
 
 

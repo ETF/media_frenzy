@@ -13,22 +13,26 @@
     <div class="row" >
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
       <div class="large-3 medium-3 columns" style="text-align: center;">
-        <h5>{{ title }}</h5>
+        <h5>{{ the_title }}</h5>
         <p id="display1" class="light-border">
           <table>
             <thead>
-              <tr>
+              
                 <th width="200">Word</th>
+            
                 <th width="150">Frequency</th>
-              </tr>
+
             </thead>
             <tbody>
-            {% for key, value in text1_wfreq.iteritems() %}
-              <tr>
-                <td class="weighted">{{ key }}</td>
-                <td class="weighted">{{ value }}</td>
+            {% for pair in top_ten1 %}
+              <tr>     
+                <td class="weighted">{{ pair[0] }}</td>
+                
+                <td class="weighted">{{ pair[1] }}</td>
+                
               </tr>
             {% endfor %}
+              
             </tbody>
           </table>
         <div class="light-border">
@@ -43,6 +47,7 @@
       <!-- PLAINTEXT CONTENT-->
       <div class="large-6 medium-6 columns" class="light-border" style="text-align: center;">
         <h1> Headlines!!! </h1>
+        <p style='font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;'> {{ reading_text }} </p>
       </div>
 
       <!-- RIGHT SIDE (USER SENTIMENT) -->

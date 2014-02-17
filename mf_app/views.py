@@ -1,11 +1,11 @@
 from mf_app import app, db
 from mf_app.models import User, Article
 from mf_app.forms import RegisterForm, LoginForm, StartFrenzy
-from api import counts_pages_words
+from api import counts_pages_words, textify
 from flask import render_template, request, session, flash, redirect, url_for
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
-import api
+
 
 
 
@@ -64,24 +64,23 @@ def start_frenzy():
 		this = type(form.url)
 		#this = this.__html__
 		#this = type(this)
-		flash(form.url.data)
+		#flash(form.url.data)
 		#import pdb; pdb.set_trace()
 		w_url = str(form.url.data)
 		
 		#w_url = w_url.__html__
 		results = counts_pages_words(w_url)
-		title = results["title"]
+		the_title = results["title"]()
 		text1_wfreq = dict(results["freq_dist"][0:10])
+		text1_words = [word[0] for word in results["freq_dist"][0:10]]
+		text1_freq_nums = [num[1] for num in results["freq_dist"][0:10]]
 		text2_wfreq = dict(results["freq_dist"][10:20])
 
-		#print(this)
-		#
-		ok = '''proper_url = str(form.url)
-		title, url, content = utilities.pull_info(proper_url)
-		#title, url, content = utilities.pull_info('http://www.united.com')
-		#title, url, content = 'Title of Article', 'http://www.cnn.com', 'Here is some content'
+		top_ten1 = results["freq_dist"][0:10]
+		reading_text = textify(w_url)
+
 		#test this object
-		article = Article(title,
+		'''article = Article(title,
 						#0, #need to add source_id
 						url,
 						content,
@@ -100,7 +99,7 @@ def start_frenzy():
 		flash('Not working')	
 
 	if request.method == 'POST':   #does the request happen before WTForms catches it or not
-		return render_template('main.html', form=form, error=error, title=title, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
+		return render_template('main.html', top_ten1=top_ten1, reading_text=reading_text, form=form, error=error, the_title=the_title, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq, text1_words=text1_words, text1_freq_nums=text1_freq_nums)
 	else:
 		return render_template('directory.html', error=error)
 

@@ -51,31 +51,17 @@
       </div>
 
       <!-- RIGHT SIDE (USER SENTIMENT) -->
-      <div class="large-3 medium-3 columns" class="light-border" style="text-align: center;">
-        <h5>Obama 2013</h5>
+      <div class="large-3 medium-3 columns" id="bubbles-data2" class="light-border" style="text-align: center;">
+        <h5>Comments for event {{ title }}</h5>
         <p id="display2" class="light-border">
-          <table>
-            <thead>
-              <tr>
-                <th width="200">Word</th>
-                <th width="150">Frequency</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for key, value in text2_wfreq.iteritems() %}
-              <tr>
-                <td class="weighted">{{ key }}</td>
-                <td class="weighted">{{ value }}</td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+        just testing
+        </p>
 
         <div class="light-border">
           
             
             
-          </ul>
+          
         </div>        
       </div>
 
@@ -87,17 +73,22 @@
     <script>
       $(document).foundation();
     </script>
-    <script>
-    var ellipseData = [
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+     <script>
+     //still gotta copy and paste this code into the console
+ 
+var ellipseData = [
   { "cx": 80, "cy": 50, "rx": 37, "ry": 10, "color" : "orange", "text" : "applause" },
   { "cx": 210, "cy": 90, "rx": 33, "ry": 10, "color" : "red", "text" : "america" },
   { "cx": 80, "cy": 130, "rx": 16, "ry": 10, "color" : "purple", "text" : "security" },
   { "cx": 210, "cy": 170, "rx": 15, "ry": 10, "color" : "blue", "text" : "american" },
   { "cx": 80, "cy": 210, "rx": 13, "ry": 10, "color" : "green", "text" : "afghanistan" },
   { "cx": 210, "cy": 250, "rx": 13, "ry": 10, "color" : "pink", "text" : "good" }];
+  //{ "cx": 20, "cy": 170, "radius": 13, "color" : "purple", "text" : "new" },
+  //{ "cx": 70, "cy": 180, "radius": 13, "color" : "purple", "text" : "world" }
 
-  //Create the SVG Viewport
-var svgContainer = d3.select("#display1").append("svg")
+//Create the SVG Viewport
+var svgContainer = d3.select("#bubbles-data2").append("svg")
                                      .attr("width", 300)
                                      .attr("height", 300)
                                      .style("border", "1px solid black");
@@ -134,6 +125,8 @@ var textLabels = text
                  .attr("font-size", "12px")
                  .attr("text-anchor","middle")
                  .attr("fill", "white");
+
+    </script>
 
     </script>
 

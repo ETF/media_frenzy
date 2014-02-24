@@ -20,7 +20,7 @@
     <!-- SCOOPS LIST -->
     <div class="row" >
 
-      <div class="large-4 medium-4 columns" style="text-align: center;">
+      <div class="large-2 medium-2 columns" style="text-align: center;">
         <h5>Scoops</h5>
         <p><a href="#" class="medium radius button">Story X</a><br/>
            <a href="#" class="medium radius button">Story X</a><br/>          
@@ -31,7 +31,7 @@
       </div>
       
       <!-- CANVAS SECTION-->
-      <div class="large-8 medium-8 columns">
+      <div class="large-10 medium-10 columns">
         <h5 style="text-align: center;">BUBBLES!</h5>
         <div class="row">
           <div class="large-12 columns">
@@ -44,9 +44,9 @@
             <h6> URL </h6>
               <br/>
               <form action="/start_frenzy" method="POST">
-                <p>{{ form.url.label }} {{ form.url }}</p>&nbsp;
+                <p>{{ form.url }}</p>&nbsp;
                 <div style="text-align: center;">
-                  <p><input href="{{ url_for('main') }}" class="large round button" type="submit" style="background-color: #f38400;">START A FRENZY!</a></p> <br/>   
+                  <p><input href="{{ url_for('main') }}" class="large round button" type="submit" value="Start A Frenzy" style="background-color: #f38400;"></a></p> <br/>   
                 </div>
               </form>
               <!-- <p><em>Already registered?</em> Click <a href="{{ url_for('login') }}">here</a> to login</p> 

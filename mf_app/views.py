@@ -2,12 +2,10 @@ from mf_app import app, db
 from mf_app.models import User, Article
 from mf_app.forms import RegisterForm, LoginForm, StartFrenzy
 from api import counts_pages_words, textify
-from flask import render_template, request, session, flash, redirect, url_for
+from flask import render_template, request, session, flash, redirect, url_for, jsonify
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
-
-
-
+import json
 
 #ERROR AND LOGIN HANDLING
 def flash_errors(form):
@@ -54,14 +52,16 @@ def login():
 @app.route('/start_frenzy', methods=['POST'])
 def start_frenzy():
 	error = None
-	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
-	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
+
+	#mock data
+	#text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
+	#text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
 	
 	form = StartFrenzy(request.form)
 	# Test the type of request.form
-	#may require type conversion
+	# may require type conversion
 	if form:
-		this = type(form.url)
+		#this = type(form.url)
 		#this = this.__html__
 		#this = type(this)
 		#flash(form.url.data)
@@ -69,40 +69,37 @@ def start_frenzy():
 		w_url = str(form.url.data)
 		
 		#w_url = w_url.__html__
-		results = counts_pages_words(w_url)
-		the_title = results["title"]()
-		text1_wfreq = dict(results["freq_dist"][0:10])
-		text1_words = [word[0] for word in results["freq_dist"][0:10]]
-		text1_freq_nums = [num[1] for num in results["freq_dist"][0:10]]
-		text2_wfreq = dict(results["freq_dist"][10:20])
+		
+		#the_title = results["title"]()
 
-		top_ten1 = results["freq_dist"][0:10]
+		#json_top_ten1 = 
 		reading_text = textify(w_url)
-
-		#test this object
-		'''article = Article(title,
-						#0, #need to add source_id
-						url,
-						content,
-						'Heyy we need freq data!',
-						#1,
-						#2
-						)
-		try:
-			db.session.add(article)
-			db.session.commit()
-			flash('Started a frenzy')
-
-		except IntegrityError:
-			return 'Hey this already exists' '''
 	else:
 		flash('Not working')	
 
 	if request.method == 'POST':   #does the request happen before WTForms catches it or not
-		return render_template('main.html', top_ten1=top_ten1, reading_text=reading_text, form=form, error=error, the_title=the_title, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq, text1_words=text1_words, text1_freq_nums=text1_freq_nums)
+		return render_template('main.html', top_tenJSON=get_global_JSON(w_url), reading_text=reading_text, form=form, error=error)
 	else:
 		return render_template('directory.html', error=error)
 
+def get_global_JSON(url, context=None):
+	results = counts_pages_words(url)
+	top_ten1 = results["freq_dist"][0:10] #still type list of tuple pairs
+	return json.dumps(top_ten1)
+
+@app.route('/get_JSON_comments')
+def get_JSON_comments():
+	# fake_comments = ["squirrels are crazy", "ya, you should see them on a house boat", "they're smarter than you think", "Right!? They are highly intelligent", "And crazy... For nuts", "My dog likes nuts", "Word", "Did you hear about my grandma?", "Was it your grandma that got bit by the dog", "Ya, on the crazy house boat"]
+	comment_frequency = [
+	  ["boats", 55],
+	  ["slum", 19],
+	  ["squirrels", 14],
+	  ["wordup", 9],	  
+	  ["seepage", 5],
+	  ["grandma", 4],
+	  ["Gilligan", 2],
+	  ["pirate", 1]]
+	return jsonify(results=comment_frequency)
 
 #REGISTER FUNCTION ONLY NEEDED ONCE
 @app.route('/register', methods=['GET', 'POST'])

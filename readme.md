@@ -102,7 +102,7 @@ Division of Labor
 #### Specific Ownership
  - Project Manage this project.
  - Visualization functionality (D3?)
- - Wireframes and Architecure
+ - Wireframes and Architecture
 
 ### asciimo
 #### General Goals

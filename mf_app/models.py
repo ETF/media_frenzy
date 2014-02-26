@@ -113,5 +113,30 @@ class Source(db.Model):	#probly a lot of articles from different sources
 	def __repr__(self):
 		return '<Source %r>' % (self.source_name)
 
+class ArticleWords(db.Model):
 
+	__tablename__ = 'article_words'
 
+	id = db.Column(db.Integer, primary_key=True)
+	word = db.Column(db.String, nullable=False)
+	article_id = db.Column(db.Integer, db.ForeignKey('articles.article_id'))
+	count = db.Column(db.Integer, nullable=False)
+
+	def __init__(self, word, article_id, count):
+		self.word = word 
+		self.article_id = article_id
+		self.count = count 
+
+class CommentsWords(db.Model):
+
+	__tablename__ = 'comment_words'
+
+	id = db.Column(db.Integer, primary_key=True)
+	word = db.Column(db.String, nullable=False)
+	article_id = db.Column(db.Integer, db.ForeignKey('articles.article_id'))
+	count = db.Column(db.Integer, nullable=False)
+
+	def __init__(self, word, article_id, count):
+		self.word = word 
+		self.article_id = article_id
+		self.count = count

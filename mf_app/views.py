@@ -31,10 +31,7 @@ def login_required(test):
 @app.route('/', methods=['GET','POST'])
 def index():
 	error = None
-	text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
-	text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
-	return render_template('directory.html', form=StartFrenzy(request.form), error=error, text1_wfreq=text1_wfreq, text2_wfreq=text2_wfreq)
-
+	return render_template('directory.html', form=StartFrenzy(request.form), error=error)
 @app.route('/login', methods=['POST'])
 def login():
 	error = None
@@ -50,7 +47,7 @@ def login():
 	return render_template('directory.html', form=LoginForm(request.form), error=error)
 
 @app.route('/start_frenzy', methods=['POST'])
-def start_frenzy():
+def submit_article():
 	error = None
 
 	#mock data

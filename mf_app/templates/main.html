@@ -11,7 +11,7 @@
     <!-- SCOOPS LIST -->
     <div class="row" >
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
-      <div  class="large-3 medium-3 columns" style="text-align: center;">
+      <div class="large-3 medium-3 columns" id="bubbles-data1" class="light-border" style="text-align: center;">
         <h5>Article for event</h5>
         <p class="light-border">
          <div id="display1"> </div>
@@ -79,11 +79,15 @@ function display(data, type) {
 
 
 //Create the SVG Viewport
+
 var display_area = type == "media" ? "#display1" : "#display2";
+//getting width of columns rather than width of #display1 div
+//can possibly add the width of the padding to this parameter
+var target_div_w = display_area == "#display1" ? "#bubbles-data1" : "#bubbles-data2";
 
 //Size SVG to proper div
-var div_w, div_h;
-div_w = $(display_area).width();
+var div_w;
+div_w = $(target_div_w).outerWidth();
 //div_h = $(display_area).height();
 //div_w = document.getElementById(display_area).offsetWidth;
 //div_h = document.getElementById(display_area).offsetHeight;

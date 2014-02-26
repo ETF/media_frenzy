@@ -8,13 +8,14 @@
       </div>
     </div>
     
-
     <!-- SCOOPS LIST -->
     <div class="row" >
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
-      <div class="large-3 medium-3 columns" style="text-align: center;">
-        <h5>{{ the_title }}</h5>
-        <p id="display1" class="light-border">
+      <div  class="large-3 medium-3 columns" style="text-align: center;">
+        <h5>Article for event</h5>
+        <p class="light-border">
+         <div id="display1"> </div>
+        </p>
           
         <div class="light-border">
           <ul> 
@@ -34,15 +35,16 @@
       <!-- RIGHT SIDE (USER SENTIMENT) -->
       <div class="large-3 medium-3 columns" id="bubbles-data2" class="light-border" style="text-align: center;">
         <h5>Comments for event {{ title }}</h5>
-        <p id="display2" class="light-border">
-        just testing
+        <p class="light-border" >
+          <div id="display2"> </div>
         </p>
 
         <div class="light-border">
-          
-            
-            
-          
+          <ul> 
+            <li> link </li>
+            <li> link </li>
+            <li> link </li>
+          </ul> 
         </div>        
       </div>
 
@@ -67,19 +69,30 @@ function display(data, type) {
   }
 
   var ellipseData = [];
-  var odd_cx=100, even_cx=230, cy=10, radius_y=10;
+  var even_cx=50, odd_cx=150, cy=10, radius_y=10;
 
   for (var i=0; i<data.length; i++) {
     var even = (i % 2 == 0);
     ellipseData[i] = { "cx": even ? even_cx : odd_cx, "cy": cy += 40, "rx": data[i][1], "ry": radius_y, "text" : data[i][0] };
 }
 
+
+
 //Create the SVG Viewport
 var display_area = type == "media" ? "#display1" : "#display2";
+
+//Size SVG to proper div
+var div_w, div_h;
+div_w = $(display_area).width();
+//div_h = $(display_area).height();
+//div_w = document.getElementById(display_area).offsetWidth;
+//div_h = document.getElementById(display_area).offsetHeight;
+
 var svgContainer = d3.select(display_area).append("svg")
-                                     .attr("width", 400)
-                                     .attr("height", 400)
-                                     .style("border", "1px solid black");
+                                     .attr("width", div_w)
+                                     .attr("height", 500)
+                                     .attr("opacity", .7)
+                                     .style("border", "1px solid white");
 //Add circles to the svgContainer
 var ellipses = svgContainer.selectAll("ellipse")
                            .data(ellipseData)
@@ -95,9 +108,14 @@ var ellipseAttributes = ellipses
                        .attr("rx", function (d) { return d.rx + 27; }) 
                        .attr("ry", function (d) { return d.ry + 16; }) 
                        // + 5 to make word fit in bubble
-                       .style("fill", function color(d) {
-                            var color_multiplier = d * 387; //insert in hex below 
-                            return '#'+Math.floor(Math.random()*0xFF0000).toString(16); });
+                       .style("fill", function getRandomColor(d) {
+                                var letters = '0123456789ABCDEF'.split('');
+                                var color = '#';
+                                for (var i = 0; i < 6; i++ ) {
+                                    color += letters[Math.round(Math.random() * 15)];
+                                }
+                                return color;
+                            });
                        /* basic random color function from D3_basicCircle
                           .style("fill", function color(d) {
                             var color_multiplier = d * 387; //insert in hex below 

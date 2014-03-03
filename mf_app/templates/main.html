@@ -11,13 +11,13 @@
     <!-- SCOOPS LIST -->
     <div class="row" >
     <!-- LEFT SIDE (MEDIA SENTIMENT) -->
-      <div class="large-3 medium-3 columns" id="bubbles-data1" class="light-border" style="text-align: center;">
-        <h5>Article for event</h5>
+      <div class="large-3 medium-3 columns" id="article-div" class="light-border" style="text-align: center;">
+        <h5 id="article-header">Article for Event</h5>
         <p class="light-border">
-         <div id="display1"> </div>
+         <div id="article-bubbles"> </div>
         </p>
           
-        <div class="light-border">
+        <div class="light-border" id="article-links">
           <ul> 
             <li> link </li>
             <li> link </li>
@@ -33,13 +33,13 @@
       </div>
 
       <!-- RIGHT SIDE (USER SENTIMENT) -->
-      <div class="large-3 medium-3 columns" id="bubbles-data2" class="light-border" style="text-align: center;">
-        <h5>Comments for event {{ title }}</h5>
-        <p class="light-border" >
-          <div id="display2"> </div>
+      <div class="large-3 medium-3 columns" id="comment-div" class="light-border" style="text-align: center;">
+        <h5 id="comment-header">Comments for Event {{ title }}</h5>
+        <p class="light-border">
+          <div id="comment-bubbles"> </div>
         </p>
 
-        <div class="light-border">
+        <div class="light-border" id="comment-links">
           <ul> 
             <li> link </li>
             <li> link </li>
@@ -57,9 +57,8 @@
       $(document).foundation();
     </script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="static/js/main.js"></script>
     <script>
-     //still gotta copy and paste this code into the console
-
 var mediaCircles = {% autoescape false %} {{ top_tenJSON }} {% endautoescape %};
 
 function display(data, type) {
@@ -74,27 +73,86 @@ function display(data, type) {
   for (var i=0; i<data.length; i++) {
     var even = (i % 2 == 0);
     ellipseData[i] = { "cx": even ? even_cx : odd_cx, "cy": cy += 40, "rx": data[i][1], "ry": radius_y, "text" : data[i][0] };
-}
+  }
 
+//get max value ellipseData 
+  var max_eD = 0;
+  for (var r=0; r<ellipseData.length; r++) {
+    if (max_eD <= ellipseData[r][1]) {
+      max_eD = ellipseData[r][1];    
+    }
+  }
+//dangerous to set arbitrary value, infinity is possible in Js but is it going to cause problems
+  var min_eD = 100000000000;
+  for (var r=0; r<ellipseData.length; r++) {
+    if (min_eD >= ellipseData[r][1]) {
+      min_eD = ellipseData[r][1];    
+    }
+  }
 
+/* I lost track of looking at our datatype
+var min_eD = 100000000000;
+  for (var r=0; r<data.length; r++)     { 
+    if ( min_eD >= ellipseData[r][1]) { 
+      min_eD = ellipseData[r][1]; 
+    } 
+  }
+  var min_eD = 100000000000;
+  for (var r=0; r<mediaCircles.length; r++)     { 
+    if ( min_eD >= mediaCircles[r][1]) { 
+      min_eD = mediaCircles[r][1]; 
+    } 
+  }
+  var max_eD = 0;
+  for (var r=0; r<mediaCircles.length; r++)     { 
+    if ( max_eD <= mediaCircles[r][1]) { 
+      max_eD = mediaCircles[r][1]; 
+    } 
+  }
+*/
 
-//Create the SVG Viewport
+//Get Parameters of DOM Elements in article and comment columns
+var target_entire_column_div = type == "media" ? "#article-div" : "#comment-div";
+var target_header = type == "media" ? "#article-header" : "#comment-header";
+var target_links_div = type == "media" ? "#article-links" : "#comment-bubbles";
+//the target_bubble_div will get pushed by SVG element. The width and height will be set after SVG is Created
+var target_bubble_div = type == "media" ? "#article-bubbles" : "#comment-bubbles";
 
-var display_area = type == "media" ? "#display1" : "#display2";
-//getting width of columns rather than width of #display1 div
-//can possibly add the width of the padding to this parameter
-var target_div_w = display_area == "#display1" ? "#bubbles-data1" : "#bubbles-data2";
+//Get parameters of finite elements
+var column_div_w = $(target_entire_column_div).outerWidth(true);
+//column_div_h gets set by elements within it after they are painted
+var column_div_h = $(target_entire_column_div).outerHeight(true);
+var header_w = $(target_header).outerWidth(true);
+var header_h = $(target_header).outerHeight(true);
+var links_div_w = $(target_links_div).outerWidth(true);
+var links_div_h = $(target_links_div).outerHeight(true);
 
-//Size SVG to proper div
-var div_w;
-div_w = $(target_div_w).outerWidth();
-//div_h = $(display_area).height();
-//div_w = document.getElementById(display_area).offsetWidth;
-//div_h = document.getElementById(display_area).offsetHeight;
+//pure Js methods didn't really seem to work
+//div_w = document.getElementById(target_header).offsetWidth;
+//div_h = document.getElementById(target_header).offsetHeight;
 
-var svgContainer = d3.select(display_area).append("svg")
-                                     .attr("width", div_w)
-                                     .attr("height", 500)
+var svgWidth = column_div_w;
+var svgHeight = $(window).height() - header_h - links_div_h;
+
+//var min_ellipseData = d3.min(ellipseData);
+//var max_ellipseData = d3.max(ellipseData);
+
+//padding helps to make scales
+var svgPadding = (svgWidth + svgHeight) / 200;
+
+//
+var xScale = d3.scale.linear()
+                  .domain([ 0, max_eD ])
+                  .range([svgPadding - min_eD, svgWidth - svgPadding - max_eD]);
+
+var yScale = d3.scale.linear()
+                  .domain([ 0, max_eD ])
+                  .range([svgPadding - min_eD, svgHeight - svgPadding - max_eD]);
+
+//Size SVG element to according to other elements in column
+var svgContainer = d3.select(target_entire_column_div).append("svg")
+                                     .attr("width", svgWidth)
+                                     .attr("height", svgHeight) //get something in Viewport
                                      .attr("opacity", .7)
                                      .style("border", "1px solid white");
 //Add circles to the svgContainer
@@ -103,14 +161,16 @@ var ellipses = svgContainer.selectAll("ellipse")
                            .enter()
                            .append("ellipse");
 
+
+
 //Add the circle attributes
 // Note that we may have to program the circles (circle radii) to be bigger depending on the length of the word
 var ellipseAttributes = ellipses
                        //know more about the d attribute and what it stores
                        .attr("cx", function (d) { return d.cx; })
                        .attr("cy", function (d) { return d.cy; })
-                       .attr("rx", function (d) { return d.rx + 27; }) 
-                       .attr("ry", function (d) { return d.ry + 16; }) 
+                       .attr("rx", function (d) { return (d.rx); }) 
+                       .attr("ry", function (d) { return (d.ry); }) 
                        // + 5 to make word fit in bubble
                        .style("fill", function getRandomColor(d) {
                                 var letters = '0123456789ABCDEF'.split('');
@@ -125,6 +185,7 @@ var ellipseAttributes = ellipses
                             var color_multiplier = d * 387; //insert in hex below 
                             return '#'+Math.floor(Math.random()*0xFF0000).toString(16); }
                         ); */
+
 
 //Add the SVG Text Element to the svgContainer
 var text = svgContainer.selectAll("text")

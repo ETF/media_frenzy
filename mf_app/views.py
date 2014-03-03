@@ -32,6 +32,7 @@ def login_required(test):
 def index():
 	error = None
 	return render_template('directory.html', form=StartFrenzy(request.form), error=error)
+
 @app.route('/login', methods=['POST'])
 def login():
 	error = None
@@ -49,27 +50,10 @@ def login():
 @app.route('/start_frenzy', methods=['POST'])
 def submit_article():
 	error = None
-
-	#mock data
-	#text1_wfreq = {'applause': 77, 'america': 33, 'security': 16, 'american': 15, 'afghanistan': 13, 'good': 13, 'new': 13, 'world': 13}
-	#text2_wfreq = {'applause': 103, 'more': 40, 'now': 37, 'can': 31, 'jobs': 24, 'new': 24, 'all': 23, "let's": 23}
-	
 	form = StartFrenzy(request.form)
-	# Test the type of request.form
-	# may require type conversion
 	if form:
-		#this = type(form.url)
-		#this = this.__html__
-		#this = type(this)
-		#flash(form.url.data)
 		#import pdb; pdb.set_trace()
 		w_url = str(form.url.data)
-		
-		#w_url = w_url.__html__
-		
-		#the_title = results["title"]()
-
-		#json_top_ten1 = 
 		reading_text = textify(w_url)
 	else:
 		flash('Not working')	

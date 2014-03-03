@@ -140,10 +140,11 @@ var svgHeight = $(window).height() - header_h - links_div_h;
 //padding helps to make scales
 var svgPadding = (svgWidth + svgHeight) / 200;
 
-//
+min_eD = 1;
+max_eD = 5;
 var xScale = d3.scale.linear()
                   .domain([ 0, max_eD ])
-                  .range([svgPadding - min_eD, svgWidth - svgPadding - max_eD]);
+                  .range([svgPadding - min_eD, ((svgWidth - svgPadding - (max_eD / 4)) / 5)]);
 
 var yScale = d3.scale.linear()
                   .domain([ 0, max_eD ])
@@ -169,7 +170,7 @@ var ellipseAttributes = ellipses
                        //know more about the d attribute and what it stores
                        .attr("cx", function (d) { return d.cx; })
                        .attr("cy", function (d) { return d.cy; })
-                       .attr("rx", function (d) { return (d.rx); }) 
+                       .attr("rx", function (d) { return xScale(d.rx); }) 
                        .attr("ry", function (d) { return (d.ry); }) 
                        // + 5 to make word fit in bubble
                        .style("fill", function getRandomColor(d) {

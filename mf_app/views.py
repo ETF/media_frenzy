@@ -72,7 +72,7 @@ def get_global_JSON(url, context=None):
 def get_JSON_comments():
 	# fake_comments = ["squirrels are crazy", "ya, you should see them on a house boat", "they're smarter than you think", "Right!? They are highly intelligent", "And crazy... For nuts", "My dog likes nuts", "Word", "Did you hear about my grandma?", "Was it your grandma that got bit by the dog", "Ya, on the crazy house boat"]
 	comment_frequency = [
-	  ["boats", 55],
+	  ["boats", 25],
 	  ["slum", 19],
 	  ["squirrels", 14],
 	  ["wordup", 9],	  

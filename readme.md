@@ -14,11 +14,12 @@ Media Frenzy will allow users to comment on articles and events, read a plaintex
 Getting Started
 ---
 From media_frenzy directory
+- Make sure to use python 2.7: which python
 - Install your virtual environment: virtualenv .   
 - Activate: source bin/activate
 - Install Dependencies: pip install -r requirements.txt
 - Create Database: python db_create.py
-- Note: Debug is set to True
+- Note: Debug on dev server is set to True
 - View app: python run.py 
 
 User Interface Structure

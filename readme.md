@@ -18,7 +18,7 @@ From media_frenzy directory
 - Activate: source bin/activate
 - Install Dependencies: pip install -r requirements.txt
 - Create Database: python db_create.py
-- Debug is set to True
+- Note: Debug is set to True
 - View app: python run.py 
 
 User Interface Structure
